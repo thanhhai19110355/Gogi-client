@@ -1,0 +1,80 @@
+@use '../../../components//GlobalStyles/Reponsive.scss' as *;
+#footer {
+  width: 100%;
+  margin: 0;
+  background-color: var(--text-color);
+  color: var(--white);
+  padding: 24px 0 60px;
+  @include tablet {
+    padding-left: $md-spacing;
+    padding-right: $md-spacing;
+  }
+  @include mobile {
+    padding-left: $sm-spacing;
+    padding-right: $sm-spacing;
+  }
+  .footer {
+    .footer-top {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 40% 30% 30%;
+      grid-column-gap: 15px;
+      padding-bottom: 24px;
+      h2 {
+        text-transform: capitalize;
+        padding-bottom: 15px;
+      }
+      .footer-top-name {
+        display: none;
+        p {
+          font-size: 1.2rem;
+        }
+        @include desktop {
+          display: block;
+        }
+      }
+      .footer-top-about {
+        li {
+          margin-bottom: 10px;
+          a {
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            &:hover {
+              color: var(--primary);
+            }
+          }
+        }
+      }
+      .footer-top-sp {
+        .link-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          .icon {
+            font-size: 3rem;
+            color: var(--white);
+            margin-right: 8px;
+            padding: 5px;
+            &:hover {
+              color: var(--primary);
+            }
+          }
+        }
+        span {
+          font-size: 1.2rem;
+          color: var(--white);
+        }
+      }
+    }
+    .footer-bot {
+      padding-top: 24px;
+      border-top: 2px solid var(--white);
+
+      justify-content: left;
+      p {
+        font-size: 1rem !important;
+      }
+    }
+  }
+}

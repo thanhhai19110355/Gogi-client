@@ -1,0 +1,90 @@
+$header-height: 60px;
+$count-notify-number-width: 20px;
+
+.wrapper {
+  // display: grid;
+  // grid-template-columns: 20% 80%;
+  position: relative;
+  padding-left: 20%;
+  .content {
+    min-height: 100vh;
+    .header {
+      width: 100%;
+      height: $header-height;
+      padding: 0 3rem;
+      background-color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 2.5rem;
+      box-shadow: 3px 2px 5px #ccc;
+      position: sticky;
+      top: 0;
+      right: 0;
+      left: 20%;
+      z-index: 99;
+      span,
+      a {
+        color: var(--primary);
+        cursor: pointer;
+        &:not(:last-child) {
+          margin-right: 2rem;
+        }
+      }
+      .announcement {
+        width: 400px;
+        height: 50vh;
+        background-color: var(--white);
+        position: absolute !important;
+        z-index: 999;
+        border-radius: 5px;
+        box-shadow: 0 0 3px #ddd;
+        right: 100px;
+        top: 80%;
+        overflow-y: scroll;
+        transform: scale(0);
+        transition: all 0.3s;
+        transform-origin: top right;
+        padding: 15px;
+        &.open {
+          transform: scale(1);
+        }
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+          background: var(--second);
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          background: var(--primary);
+        }
+      }
+    }
+    header {
+      .notification {
+        position: relative;
+        .notification-count {
+          width: $count-notify-number-width;
+          height: $count-notify-number-width;
+          text-align: center;
+          line-height: $count-notify-number-width;
+          border-radius: 50%;
+          background-color: var(--primary);
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          color: #ffff;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    main {
+      padding: calc($header-height + 20px) 30px;
+      background-color: var(--bg-gray);
+    }
+  }
+}

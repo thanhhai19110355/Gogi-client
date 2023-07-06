@@ -1,0 +1,117 @@
+.form-wrapper {
+  border-top: 1px solid #ddd;
+  padding: 25px 0;
+  .form-control {
+    margin-bottom: 25px;
+    h4 {
+      margin-bottom: 15px;
+      font-size: var(--font-title);
+    }
+    button {
+      border: none;
+      cursor: pointer;
+      padding: 3px;
+      background-color: transparent;
+      color: var(--text-color);
+      font-weight: 400;
+      &:hover {
+        color: var(--primary);
+      }
+    }
+    .customer-address {
+      display: flex;
+      align-items: center;
+      h4 {
+        margin-right: 15px;
+      }
+      button {
+        font-size: 1.9rem;
+        position: relative;
+        top: -4px;
+      }
+    }
+    .customer-info {
+      min-height: 50px;
+      padding: 15px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      position: relative;
+      button {
+        font-size: 2.5rem;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+      }
+      &_first {
+        display: flex;
+        align-items: center;
+        h4,
+        h5 {
+          font-weight: 400;
+        }
+        h5 {
+          padding-left: 15px;
+          position: relative;
+          top: -7px;
+          font-size: var(--font-sm);
+        }
+        h4 {
+          padding-right: 15px;
+          position: relative;
+          font-size: var(--font-normal);
+          &::after {
+            content: '';
+            display: block;
+            width: 2px;
+            background-color: var(--color-border);
+            height: 60%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+          }
+        }
+      }
+      &_last {
+        font-size: var(--font-normal);
+        text-transform: capitalize;
+      }
+    }
+  }
+  .select-store {
+    display: block;
+    width: 100%;
+    padding: 10px 5px;
+    font-size: var(--font-normal);
+    text-transform: capitalize;
+  }
+}
+
+.pay-btn {
+  display: block;
+  min-width: 50%;
+  padding: 7px 0;
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+  border: 1px solid transparent;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-title);
+  margin-top: 36px;
+  :first-child {
+    font-size: 2.5rem;
+    margin-right: 10px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    color: #eee;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+}
