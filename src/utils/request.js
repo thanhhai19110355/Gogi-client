@@ -5,7 +5,7 @@ const ACCESS_DENIED_MSG = 'Access denied';
 
 const refreshToken = async () => {
   try {
-    const res = await axios.get('http://localhost:8089/refresh', {
+    const res = await axios.get('https://gogi-4dfede23b564.herokuapp.com/refresh', {
       withCredentials: true,
     });
     return res.data;
@@ -15,7 +15,7 @@ const refreshToken = async () => {
 };
 
 const request = axios.create({
-  baseURL: 'http://localhost:8089/',
+  baseURL: 'https://gogi-4dfede23b564.herokuapp.com/',
   withCredentials: true,
 });
 //config Authorization
