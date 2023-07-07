@@ -71,7 +71,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
-    const url = `http://localhost:8089/subscribe/stores/${auth?.employeeInfo?.storeId}/employees/${auth?.employeeInfo?.employeeId}`;
+    const url = `https://gogi-4dfede23b564.herokuapp.com/subscribe/stores/${auth?.employeeInfo?.storeId}/employees/${auth?.employeeInfo?.employeeId}`;
     const eventSource = new EventSource(url);
     eventSource.addEventListener('LIST_ORDERS_UPDATE', (event) => {
       const data = JSON.parse(event.data);
