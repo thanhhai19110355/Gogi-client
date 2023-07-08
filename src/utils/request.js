@@ -18,8 +18,7 @@ const refreshToken = async () => {
 };
 
 const request = axios.create({
-  //baseURL: 'https://gogi-4dfede23b564.herokuapp.com/',
-  baseURL: 'http://localhost:8089/',
+  baseURL: 'https://gogi-4dfede23b564.herokuapp.com/',
   withCredentials: true,
 });
 //config Authorization
