@@ -254,14 +254,16 @@ const ProductDetail = ({ product, rates }) => {
             checked={(value) => value === ice}
             handleChange={handleChangeOption}
           />
-          <SwitchField
-            title='Chọn topping (có thể chọn nhiều loại)'
-            options={toppingOptions}
-            fieldName={'toppings'}
-            checked={(value) => checkToppingIsSelecting(value)}
-            type='checkbox'
-            handleChange={handleChangeToppingOption}
-          />
+          {product?.hasTopping && (
+            <SwitchField
+              title='Chọn topping (có thể chọn nhiều loại)'
+              options={toppingOptions}
+              fieldName={'toppings'}
+              checked={(value) => checkToppingIsSelecting(value)}
+              type='checkbox'
+              handleChange={handleChangeToppingOption}
+            />
+          )}
           <button className={cx('add-cart-btn')} onClick={handleAddToCart}>
             <Icon icon='material-symbols:add-shopping-cart' />
             Thêm vào giỏ hàng

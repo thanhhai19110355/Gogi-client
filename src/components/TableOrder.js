@@ -7,7 +7,7 @@ import CustomDataTable from './CustomDataTable';
 import getStatusComponent from './Status';
 import { formatDate } from '~/utils/dateFormat';
 
-const TableOrder = ({ data, detailButton }) => {
+const TableOrder = ({ data, isAdmin = false }) => {
   const columns = [
     {
       name: 'ID',
@@ -49,7 +49,11 @@ const TableOrder = ({ data, detailButton }) => {
       name: 'Chi tiết',
       button: true,
       cell: (row) => (
-        <Link to={detailButton ? `/employee/orders/${row.id}` : '#'}>
+        <Link
+          to={
+            isAdmin ? `/admin/orders/${row.id}` : `/employee/orders/${row.id}`
+          }
+        >
           {' '}
           <Icon icon='mdi:eye-plus-outline' />
         </Link>

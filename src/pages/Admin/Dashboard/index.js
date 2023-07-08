@@ -72,7 +72,6 @@ const Dashboard = () => {
     const getStatistics = async () => {
       const res = await getAdminStatistics();
       if (res.data) {
-        console.log(res.data);
         setData(res.data);
       }
     };
@@ -86,7 +85,6 @@ const Dashboard = () => {
   const getAllOrders = async () => {
     const res = await httpGetAllOrders();
     if (res.data) {
-      console.log('orders', res.data);
       setOrderData(res.data);
       setDataRow(res.data);
     }
@@ -230,7 +228,7 @@ const Dashboard = () => {
             <Clickable primary text='Downloads' />
           </div>
         </div>
-        <TableOrder data={dataRow} />
+        <TableOrder data={dataRow} isAdmin />
       </div>
 
       <div className={cx('store')}>

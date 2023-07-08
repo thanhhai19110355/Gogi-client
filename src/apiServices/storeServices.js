@@ -1,50 +1,52 @@
 import * as request from '../utils/request';
-export const httpGetAllStore = () => {
+import { handleException } from '~/utils/handleException';
+
+export const httpGetAllStore = async () => {
   try {
-    const res = request.get(`/stores/`);
+    const res = await request.get(`/stores/`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpGetStoreByAddress = (provinceId, districtId) => {
-  const res = request.get(`/stores/address/${provinceId}/${districtId}`);
+export const httpGetStoreByAddress = async (provinceId, districtId) => {
+  const res = await request.get(`/stores/address/${provinceId}/${districtId}`);
   return res;
 };
 
-export const httpGetStoreById = (id) => {
+export const httpGetStoreById = async (id) => {
   try {
-    const res = request.get(`/stores/${id}`);
+    const res = await request.get(`/stores/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpPostStore = (payload) => {
+export const httpPostStore = async (payload) => {
   try {
-    const res = request.post('/stores', payload);
+    const res = await request.post('/stores', payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpPutStore = (id,payload) => {
+export const httpPutStore = async (id, payload) => {
   try {
-      const res = request.put(`/stores/${id}`, payload);
-      return res;
+    const res = await request.put(`/stores/${id}`, payload);
+    return res;
   } catch (error) {
-      console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpDeleteStore = (id) => {
+export const httpDeleteStore = async (id) => {
   try {
-    const res = request.deleteRequest(`/stores/${id}`);
+    const res = await request.deleteRequest(`/stores/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };

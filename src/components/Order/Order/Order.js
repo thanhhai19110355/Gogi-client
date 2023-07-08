@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import className from 'classnames/bind';
 import styles from './Order.module.scss';
 import CartItem from '../CartItem';
@@ -15,7 +14,6 @@ const cx = className.bind(styles);
 
 function Order() {
   const { cart, removeAll } = useCart();
-  console.log(cart);
   const { orderDetail, setOrderDetail, accountUsername, caclTotalCart } =
     useOrder();
   const [shipMethod, setShipMethod] = useState(

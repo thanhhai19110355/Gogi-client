@@ -31,7 +31,6 @@ const Home = () => {
         setCombo(response.data);
       }
     };
-
     getBestSeller();
     getProductsForYou();
     getCombo();

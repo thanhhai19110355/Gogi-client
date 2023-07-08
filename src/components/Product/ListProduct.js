@@ -17,7 +17,7 @@ function ListProduct(props) {
     <div className={cx('wrapper', 'container')}>
       {props.title && <h2>{props.title}</h2>}
       <div className={cx('flex-box')}>
-        {props.product.map((product, index) => (
+        {props.product?.map((product, index) => (
           <ProductItem
             product={product}
             key={index}

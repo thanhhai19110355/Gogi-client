@@ -5,9 +5,12 @@ const ACCESS_DENIED_MSG = 'Access denied';
 
 const refreshToken = async () => {
   try {
-    const res = await axios.get('https://gogi-4dfede23b564.herokuapp.com/refresh', {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      'https://gogi-4dfede23b564.herokuapp.com/refresh',
+      {
+        withCredentials: true,
+      }
+    );
     return res.data;
   } catch (error) {
     throw error;
@@ -15,7 +18,8 @@ const refreshToken = async () => {
 };
 
 const request = axios.create({
-  baseURL: 'https://gogi-4dfede23b564.herokuapp.com/',
+  //baseURL: 'https://gogi-4dfede23b564.herokuapp.com/',
+  baseURL: 'http://localhost:8089/',
   withCredentials: true,
 });
 //config Authorization
@@ -108,11 +112,7 @@ export const put = async (path, payload) => {
   return response?.data;
 };
 
-function redirectToSameOriginPage(pathname) {
-  const hostname = window.location.host;
-  // Replace the pathname portion of the URL with the desired path
-  const newUrl = `${hostname}${pathname}`;
-  // Redirect to the new URL
-  window.location.href = newUrl;
+export function redirectToSameOriginPage(pathname) {
+  window.location.href = pathname;
 }
 export default request;

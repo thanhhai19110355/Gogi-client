@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import className from 'classnames/bind';
+import { toast } from 'react-toastify';
+import { useToastError } from '~/hooks';
 import SelectAddress from '~/components/SelectAddress';
 import styles from './Form.module.scss';
 import {
@@ -23,6 +25,7 @@ const initValue = {
 function Store() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { showToastError } = useToastError();
   const [store, setStore] = useState(initValue);
   const [err, setErr] = useState('');
 
@@ -66,12 +69,15 @@ function Store() {
       if (id === 'add') {
         fullAddress = `${address}, ${address.districtName}, ${address.provinceName}`;
       }
-      if (address.districtId !== store.districtId || address.provinceId !== store.provinceId) {
+      if (
+        address.districtId !== store.districtId ||
+        address.provinceId !== store.provinceId
+      ) {
         const index = fullAddress.includes('huyện')
           ? fullAddress.indexOf('huyện')
           : fullAddress.includes('quận')
-            ? fullAddress.indexOf('quận')
-            : fullAddress.indexOf('thành phố');
+          ? fullAddress.indexOf('quận')
+          : fullAddress.indexOf('thành phố');
 
         const prefix =
           index > 0 ? store.address.slice(0, index - 2) : store.address;
@@ -90,21 +96,25 @@ function Store() {
         if (id === 'add') {
           const res = await httpPostStore(newStore);
           if (res.data) {
-            console.log(res.data);
-          } else console.log(res.errMsg);
+            toast.success('Lưu thông tin thành công', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 2000,
+            });
+          }
         } else {
           const res = await httpPutStore(store.id, newStore);
           if (res.data) {
-            console.log(res.data);
-          } else console.log(res.errMsg);
+            toast.success('Lưu thông tin thành công', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 2000,
+            });
+          }
         }
         navigate('/admin/stores');
       }
-
     } catch (error) {
-      console.log(error);
+      showToastError(error);
     }
-
   };
   const formInputs = [
     {
@@ -155,8 +165,11 @@ function Store() {
                 }}
                 setAddress={setAddress}
               />
-              {err !== '' ? (<span className={cx('error')}>{err}</span>)
-                : (<span></span>)}
+              {err !== '' ? (
+                <span className={cx('error')}>{err}</span>
+              ) : (
+                <span></span>
+              )}
               <span className={cx('height')} />
               <Clickable text='Gửi' primary />
             </form>

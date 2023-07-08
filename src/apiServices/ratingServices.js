@@ -1,18 +1,19 @@
 import * as request from '../utils/request';
+import { handleException } from '~/utils/handleException';
 
-export const httpGetRatesByUsername = () => {
+export const httpGetRatesByUsername = async () => {
   try {
-    const res = request.get('/rates/username');
+    const res = await request.get('/rates/username');
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
-export const httpPostRating = (payload) => {
+export const httpPostRating = async (payload) => {
   try {
-    const res = request.post('/rates', payload);
+    const res = await request.post('/rates', payload);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };

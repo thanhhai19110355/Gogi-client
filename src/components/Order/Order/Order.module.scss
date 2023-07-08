@@ -107,8 +107,14 @@
       outline: none;
     }
   }
-  option{
+  option {
     font-size: var(--font-normal);
+  }
+  @-moz-document url-prefix() {
+    option,
+    select {
+      background-color: var(--white);
+    }
   }
   .before-discount {
     font-size: var(--font-normal);

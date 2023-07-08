@@ -178,6 +178,11 @@ export const adminRoutes = [
     path: '/admin/toppings/:id',
     component: CreateOrUpdateTopping,
   },
+  {
+    path: 'admin/orders/:id',
+    component: Invoice,
+    permission: [PERMISSION.VIEW],
+  },
 ];
 export const employeeRoutes = [
   {

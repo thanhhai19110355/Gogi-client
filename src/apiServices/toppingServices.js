@@ -1,52 +1,54 @@
 import * as request from '../utils/request';
-export const httpGetAllToppings = () => {
+import { handleException } from '~/utils/handleException';
+
+export const httpGetAllToppings = async () => {
   try {
-    const res = request.get(`/toppings`);
+    const res = await request.get(`/toppings`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
-export const httpGetAvailableToppings = () => {
+export const httpGetAvailableToppings = async () => {
   try {
-    const res = request.get(`/toppings/available`);
+    const res = await request.get(`/toppings/available`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
-export const httpGetToppingById = (id) => {
+export const httpGetToppingById = async (id) => {
   try {
-    const res = request.get(`/toppings/${id}`);
+    const res = await request.get(`/toppings/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpPostTopping = (payload) => {
+export const httpPostTopping = async (payload) => {
   try {
-    const res = request.post('/toppings/add', payload);
+    const res = await request.post('/toppings/add', payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpPutTopping = (id, payload) => {
+export const httpPutTopping = async (id, payload) => {
   try {
-    const res = request.put(`/toppings/update/${id}`, payload);
+    const res = await request.put(`/toppings/update/${id}`, payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpDeleteTopping = (id) => {
+export const httpDeleteTopping = async (id) => {
   try {
-    const res = request.put(`/toppings/delete/${id}`);
+    const res = await request.put(`/toppings/delete/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
