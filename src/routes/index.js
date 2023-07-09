@@ -179,7 +179,7 @@ export const adminRoutes = [
     component: CreateOrUpdateTopping,
   },
   {
-    path: 'admin/orders/:id',
+    path: '/admin/orders/:id',
     component: Invoice,
     permission: [PERMISSION.VIEW],
   },
