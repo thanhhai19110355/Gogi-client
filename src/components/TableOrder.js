@@ -94,7 +94,6 @@ const parseData = (value, key) => {
   const dateKeys = ['createdDate'];
   const orderStatus = 'status';
   const orderType = 'orderType';
-  console.log(key === orderStatus);
   if (value === null || value === undefined) {
     return 'N/A';
   }
