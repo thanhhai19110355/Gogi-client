@@ -23,6 +23,7 @@ function Employee() {
         },
         account: '',
     });
+    const [current, setCurrent] = useState();
 
     useEffect(() => {
         if (id === 'add') {
@@ -37,6 +38,7 @@ function Employee() {
         const response = await httpGetEmployeeById(id);
         console.log(response.data);
         setEmployee(response.data);
+        setCurrent(response.data.account);
     };
 
     const [stores, setStores] = useState([]);
@@ -67,6 +69,12 @@ function Employee() {
         label: d.username,
         value: d.username
     }));
+    if (id !== 'add') {
+        options.push({
+            label: current,
+            value: current
+        })
+    }
 
     const [selectedValue, setSelectedValue] = useState();
     const handleChangeSelect = e => {
@@ -147,9 +155,9 @@ function Employee() {
                         </select>
 
                         <label>Tài khoản</label>
-
+            
                         <Select value={options.find(obj => obj.value === employee.account || obj.value === selectedValue)}
-                            onChange={handleChangeSelect} options={options} isSearchable required/>
+                            onChange={handleChangeSelect} options={options} isSearchable required />
                         <span className={cx('height')} />
                         <Clickable text='Gửi' primary />
                     </form>
