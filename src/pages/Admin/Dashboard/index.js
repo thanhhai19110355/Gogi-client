@@ -11,7 +11,7 @@ import { httpGetAllStore } from '~/apiServices/storeServices';
 import { ORDER_STATUS } from '~/utils/enum';
 import Clickable from '~/components/Clickable';
 import Select from 'react-select';
-import TableOrder from '~/components/TableOrder';
+import TableOrder, { downloadCSV } from '~/components/TableOrder';
 
 const cx = className.bind(styles);
 const initData = {
@@ -225,7 +225,13 @@ const Dashboard = () => {
             </select>
           </div>
           <div className={cx('filter-item')}>
-            <Clickable primary text='Downloads' />
+            <Clickable
+              primary
+              text='Xuất csv'
+              onClick={() =>
+                downloadCSV({ data: dataRow, fileName: 'don-hang.csv' })
+              }
+            />
           </div>
         </div>
         <TableOrder data={dataRow} isAdmin />

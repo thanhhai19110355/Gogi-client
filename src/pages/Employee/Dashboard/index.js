@@ -75,7 +75,7 @@ const Dashboard = () => {
     const eventSource = new EventSource(url);
     eventSource.addEventListener('LIST_ORDERS_UPDATE', (event) => {
       const data = JSON.parse(event.data);
-      if (data.length > 0) {
+      if (data) {
         setData(data);
         setIsLoading(false);
       }
