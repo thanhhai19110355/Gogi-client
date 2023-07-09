@@ -22,6 +22,7 @@ const cx = classNames.bind(styles);
 const ListVoucher = ({ seleted, setSelected }) => {
   const { orderDetail, caclTotalCart } = useOrder();
   const voucherCodeRef = useRef();
+  const [isLoading, setIsLoading] = useState(false);
   const [vouchers, setVouchers] = useState([]);
 
   const mapVoucherData = useCallback((data) => {
@@ -45,10 +46,12 @@ const ListVoucher = ({ seleted, setSelected }) => {
 
   useEffect(() => {
     const getVoucherForAccount = async () => {
+      setIsLoading(true);
       const res = await getVoucherByAccount();
       if (res?.data) {
         setVouchers(mapVoucherData(res.data));
       }
+      setIsLoading(false);
     };
     getVoucherForAccount();
   }, []);
@@ -89,49 +92,51 @@ const ListVoucher = ({ seleted, setSelected }) => {
         </h3>
         <p>Có thể chọn 1 Voucher</p>
         <form className={cx('group-voucher')}>
-          {vouchers?.length > 0
-            ? vouchers.map((item) => (
-                <>
-                  <li className={cx('voucher-item')} key={item.id}>
-                    {item.disabled && (
-                      <>
-                        <div className={cx('voucher-item-cover')}></div>
-                      </>
-                    )}
-                    <label className={cx('radio-label')} for={item.id}>
-                      <input
-                        id={item.id}
-                        type='radio'
-                        name='voucher'
-                        checked={item.id === seleted?.id}
-                        onChange={() => setSelected(item)}
-                        hidden
-                        disabled={item.disabled}
-                      />
-                      <div className={cx('radio-button')}></div>
-                    </label>
-                    <VoucherLabel voucher={item} />
-                    <div className={cx('voucher-info')}>
-                      <h4>{item?.name}</h4>
-                      <p>
-                        Đơn tối thiểu {formatPrice(item?.minimumOrderValue)}
-                      </p>
-                      <p>Tối đa {formatPrice(item?.maximumDiscountAmount)}</p>
-                      <h5>{getDistanceFromNowToDate(item?.endDate)}</h5>
-                    </div>
-                  </li>
-                  {item?.warningMsg && (
-                    <p className={cx('voucher-warning')}>
-                      <Icon
-                        className={cx('icon')}
-                        icon='mdi:warning-circle-outline'
-                      />{' '}
-                      {item.warningMsg}
-                    </p>
+          {isLoading ? (
+            <div className='loader'></div>
+          ) : vouchers?.length > 0 ? (
+            vouchers.map((item) => (
+              <>
+                <li className={cx('voucher-item')} key={item.id}>
+                  {item.disabled && (
+                    <>
+                      <div className={cx('voucher-item-cover')}></div>
+                    </>
                   )}
-                </>
-              ))
-            : 'Không có ưu đãi'}
+                  <label className={cx('radio-label')} for={item.id}>
+                    <input
+                      id={item.id}
+                      type='radio'
+                      name='voucher'
+                      checked={item.id === seleted?.id}
+                      onChange={() => setSelected(item)}
+                      hidden
+                      disabled={item.disabled}
+                    />
+                    <div className={cx('radio-button')}></div>
+                  </label>
+                  <VoucherLabel voucher={item} />
+                  <div className={cx('voucher-info')}>
+                    <h4>{item?.name}</h4>
+                    <p>Đơn tối thiểu {formatPrice(item?.minimumOrderValue)}</p>
+                    <p>Tối đa {formatPrice(item?.maximumDiscountAmount)}</p>
+                    <h5>{getDistanceFromNowToDate(item?.endDate)}</h5>
+                  </div>
+                </li>
+                {item?.warningMsg && (
+                  <p className={cx('voucher-warning')}>
+                    <Icon
+                      className={cx('icon')}
+                      icon='mdi:warning-circle-outline'
+                    />{' '}
+                    {item.warningMsg}
+                  </p>
+                )}
+              </>
+            ))
+          ) : (
+            'Hiện tại không có ưu đãi'
+          )}
         </form>
       </div>
     </div>

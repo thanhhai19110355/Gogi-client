@@ -32,6 +32,7 @@ const CustomDataTable = ({ columns, data }) => {
         columns={columns}
         data={data}
         customStyles={customStyles}
+        noDataComponent='Không tìm thấy dữ liệu phù hợp'
       />
     </div>
   );

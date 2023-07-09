@@ -1,52 +1,54 @@
 import * as request from '../utils/request';
-export const httpGetAllCategories = () => {
+import { handleException } from '~/utils/handleException';
+
+export const httpGetAllCategories = async () => {
   try {
-    const res = request.get(`/categories`);
+    const res = await request.get(`/categories`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
-export const httpGetAvailableCategories = () => {
+export const httpGetAvailableCategories = async () => {
   try {
-    const res = request.get(`/categories/available`);
+    const res = await request.get(`/categories/available`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
-export const httpGetCategoryById = (id) => {
+export const httpGetCategoryById = async (id) => {
   try {
-    const res = request.get(`/categories/${id}`);
+    const res = await request.get(`/categories/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpPostCategory = (payload) => {
+export const httpPostCategory = async (payload) => {
   try {
-    const res = request.post('/categories', payload);
+    const res = await request.post('/categories', payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpPutCategory = (id, payload) => {
+export const httpPutCategory = async (id, payload) => {
   try {
-    const res = request.put(`/categories/${id}`, payload);
+    const res = await request.put(`/categories/${id}`, payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpDeleteCategory = (id) => {
+export const httpDeleteCategory = async (id) => {
   try {
-    const res = request.put(`/categories/update/status/${id}`);
+    const res = await request.put(`/categories/update/status/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };

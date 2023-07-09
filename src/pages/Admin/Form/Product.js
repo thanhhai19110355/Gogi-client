@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import className from 'classnames/bind';
 import styles from './Form.module.scss';
+import { toast } from 'react-toastify';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useToastError } from '~/hooks';
 import { httpGetAvailableCategories } from '~/apiServices/categoryServices';
 import uploadImage from '~/apiServices/uploadImage';
 import { STATUS, TOPPING_STATUS } from '~/utils/enum';
-import { useNavigate, useParams } from 'react-router-dom';
 import FormValidation from '~/components/Form/FormValidation';
 import FormInput from '~/components/Form/FormInput';
 import ValidationRegex from '~/utils/validationRegex';
@@ -20,6 +22,7 @@ const cx = className.bind(styles);
 function Product() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { showToastError } = useToastError();
   const [category, setCategory] = useState([]);
   const [product, setProduct] = useState({
     name: '',
@@ -48,7 +51,6 @@ function Product() {
 
   const getProductById = async () => {
     const response = await httpGetProductById(id);
-    console.log(response.data.product);
     setProduct(response.data.product);
     setImage((prev) => {
       return { ...prev, url: response.data.product.img_url };
@@ -86,23 +88,32 @@ function Product() {
         if (id === 'add') {
           const res = await httpPostProduct(productToAdd);
           if (res.data) {
-            console.log(res.data);
-          } else console.log(res.errMsg);
+            toast.success('Lưu thông tin thành công', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 2000,
+            });
+          }
         } else {
           const res = await httpPutProduct(product.id, productToAdd);
           if (res.data) {
-            console.log(res.data);
-          } else console.log(res.errMsg);
+            toast.success('Lưu thông tin thành công', {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 2000,
+            });
+          }
         }
       } else {
         const productToAdd = { ...product };
         const res = await httpPutProduct(product.id, productToAdd);
         if (res.data) {
-          console.log(res.data);
-        } else console.log(res.errMsg);
+          toast.success('Lưu thông tin thành công', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+          });
+        }
       }
     } catch (error) {
-      console.log(error);
+      showToastError(error);
     }
     navigate('/admin/products');
   };
@@ -134,7 +145,7 @@ function Product() {
       title: 'Giảm giá',
       placeholder: 'VD: 0.1',
       required: true,
-    }
+    },
   ];
   return (
     <div className={cx('wrapper')}>
@@ -155,7 +166,7 @@ function Product() {
                 setProduct({ ...product, category: { id: e.target.value } })
               }
             >
-              <option value="">--Chọn--</option>
+              <option value=''>--Chọn--</option>
               {category.map((category) => {
                 return <option value={category.id}>{category.name}</option>;
               })}
@@ -178,7 +189,11 @@ function Product() {
             />
 
             <label>Trạng thái</label>
-            <select name='status' value={product.status} onChange={handleChange}>
+            <select
+              name='status'
+              value={product.status}
+              onChange={handleChange}
+            >
               {STATUS.map((item) => (
                 <option key={item.id} value={item.value}>
                   {item.name}
@@ -187,7 +202,11 @@ function Product() {
             </select>
 
             <label>Topping</label>
-            <select name='hasTopping' value={product.hasTopping} onChange={handleChange}>
+            <select
+              name='hasTopping'
+              value={product.hasTopping}
+              onChange={handleChange}
+            >
               {TOPPING_STATUS.map((item) => (
                 <option key={item.id} value={item.value}>
                   {item.name}
@@ -197,7 +216,9 @@ function Product() {
 
             <label>Ảnh</label>
             <div className={cx('image-wrapper')}>
-              {image.url && <img className={cx('image')} src={image.url} alt='' />}
+              {image.url && (
+                <img className={cx('image')} src={image.url} alt='' />
+              )}
               {!image.file && image.url && (
                 <input
                   name='image'

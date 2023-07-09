@@ -1,55 +1,56 @@
 import * as request from '../utils/request';
-export const httpGetAllEmployee = () => {
+import { handleException } from '~/utils/handleException';
+
+export const httpGetAllEmployee = async() => {
   try {
-    const res = request.get(`/employees/`);
+    const res = await request.get(`/employees/`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpGetEmployeeById = (id) => {
+export const httpGetEmployeeById = async(id) => {
   try {
-    const res = request.get(`/employees/${id}`);
+    const res = await request.get(`/employees/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpGetEmployeeAccountUsername = (username) => {
+export const httpGetEmployeeAccountUsername = async(username) => {
   try {
-    const res = request.get(`/employees/account/${username}`);
+    const res = await request.get(`/employees/account/${username}`);
     return res;
   } catch (error) {
-    console.log(error.response.data);
+    throw handleException(error);
   }
 };
 
-export const httpPostEmployee = (payload) => {
+export const httpPostEmployee = async(payload) => {
   try {
-    const res = request.post('/employees', payload);
+    const res = await request.post('/employees', payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpPutEmployee = (id, payload) => {
+export const httpPutEmployee = async(id, payload) => {
   try {
-    const res = request.put(`/employees/${id}`, payload);
+    const res = await request.put(`/employees/${id}`, payload);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
 
-export const httpDeleteEmployee = (id) => {
+export const httpDeleteEmployee = async(id) => {
   try {
-    const res = request.deleteRequest(`/employees/${id}`);
+    const res = await request.deleteRequest(`/employees/${id}`);
     return res;
   } catch (error) {
-    console.log(error.response.data.errMsg);
+    throw handleException(error);
   }
 };
-

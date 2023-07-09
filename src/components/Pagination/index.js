@@ -56,9 +56,7 @@ const Pagination = (props) => {
         <Icon icon='ic:baseline-keyboard-arrow-right' />
       </li>
     </ul>
-  ) : (
-    <p>Không có sản phẩm nào</p>
-  );
+  ) : null;
 };
 
 export default Pagination;

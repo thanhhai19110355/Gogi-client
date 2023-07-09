@@ -3,7 +3,7 @@ import className from 'classnames/bind';
 import styles from './ManageOrders.module.scss';
 import { ORDER_STATUS } from '~/utils/enum';
 import Clickable from '~/components/Clickable';
-import TableOrder from '~/components/TableOrder';
+import TableOrder, { downloadCSV } from '~/components/TableOrder';
 import { httpGetOrderByStoreId } from '~/apiServices/orderServices';
 import { Icon } from '@iconify/react';
 import { useAuth } from '~/hooks';
@@ -82,7 +82,13 @@ const ManageOrders = () => {
           </select>
         </div>
         <div className={cx('filter-item')}>
-          <Clickable primary text='Tải xuống' />
+          <Clickable
+            primary
+            text='Xuất csv'
+            onClick={() =>
+              downloadCSV({ data: dataRow, fileName: 'don-hang.csv' })
+            }
+          />
         </div>
       </div>
       <TableOrder data={dataRow} detailButton />

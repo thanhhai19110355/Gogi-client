@@ -11,7 +11,7 @@ import { httpGetAllStore } from '~/apiServices/storeServices';
 import { ORDER_STATUS } from '~/utils/enum';
 import Clickable from '~/components/Clickable';
 import Select from 'react-select';
-import TableOrder from '~/components/TableOrder';
+import TableOrder, { downloadCSV } from '~/components/TableOrder';
 
 const cx = className.bind(styles);
 const initData = {
@@ -72,7 +72,6 @@ const Dashboard = () => {
     const getStatistics = async () => {
       const res = await getAdminStatistics();
       if (res.data) {
-        console.log(res.data);
         setData(res.data);
       }
     };
@@ -86,7 +85,6 @@ const Dashboard = () => {
   const getAllOrders = async () => {
     const res = await httpGetAllOrders();
     if (res.data) {
-      console.log('orders', res.data);
       setOrderData(res.data);
       setDataRow(res.data);
     }
@@ -227,10 +225,16 @@ const Dashboard = () => {
             </select>
           </div>
           <div className={cx('filter-item')}>
-            <Clickable primary text='Downloads' />
+            <Clickable
+              primary
+              text='Xuất csv'
+              onClick={() =>
+                downloadCSV({ data: dataRow, fileName: 'don-hang.csv' })
+              }
+            />
           </div>
         </div>
-        <TableOrder data={dataRow} />
+        <TableOrder data={dataRow} isAdmin />
       </div>
 
       <div className={cx('store')}>

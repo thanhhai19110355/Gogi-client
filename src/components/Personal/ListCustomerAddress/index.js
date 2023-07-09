@@ -47,7 +47,7 @@ const ListCustomerAddress = ({ selected, setSelected }) => {
       const res = await httpDeleteCustomer(selected.id);
       if (res.data) {
         setReload(!reload);
-        toast.success('Xóa địa chỉ thành công', {
+        toast.success('Lưu thông tin thành công!', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 2000,
         });

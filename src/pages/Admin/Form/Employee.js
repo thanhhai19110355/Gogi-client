@@ -36,7 +36,6 @@ function Employee() {
 
     const getEmployeeById = async () => {
         const response = await httpGetEmployeeById(id);
-        console.log(response.data);
         setEmployee(response.data);
         setCurrent(response.data.account);
     };
@@ -89,7 +88,6 @@ function Employee() {
                 return;
             }
             const newEmployee = { ...employee };
-            console.log(newEmployee);
             if (id === 'add') {
                 const res = await httpPostEmployee(newEmployee);
                 if (res.data) {

@@ -23,6 +23,7 @@ const columns = [
   },
   {
     name: 'Sản phẩm',
+    grow: 1,
     selector: (row) => row.product_name,
   },
   {

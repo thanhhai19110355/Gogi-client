@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import className from 'classnames/bind';
 import styles from './Form.module.scss';
+import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useToastError } from '~/hooks';
 import FormValidation from '~/components/Form/FormValidation';
 import FormInput from '~/components/Form/FormInput';
 import ValidationRegex from '~/utils/validationRegex';
@@ -26,6 +28,7 @@ const initValue = {
 function Voucher() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { showToastError } = useToastError();
   const [voucher, setVoucher] = useState(initValue);
 
   useEffect(() => {
@@ -38,7 +41,6 @@ function Voucher() {
 
   const getVoucherById = async () => {
     const response = await httpGetVoucherById(id);
-    console.log(response.data);
     setVoucher(response.data);
   };
 
@@ -57,16 +59,22 @@ function Voucher() {
       if (id === 'add') {
         const res = await httpPostVoucher(voucher);
         if (res.data) {
-          console.log(res.data);
-        } else console.log(res.errMsg);
+          toast.success('Lưu thông tin thành công', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+          });
+        }
       } else {
         const res = await httpPutVoucher(voucher.id, voucher);
         if (res.data) {
-          console.log(res.data);
-        } else console.log(res.errMsg);
+          toast.success('Lưu thông tin thành công', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+          });
+        }
       }
     } catch (error) {
-      console.log(error);
+      showToastError(error);
     }
     navigate('/admin/vouchers');
   };
@@ -98,7 +106,6 @@ function Voucher() {
       required: true,
       pattern: ValidationRegex.code.pattern,
       message: ValidationRegex.code.message,
-
     },
     {
       id: 4,
@@ -109,7 +116,6 @@ function Voucher() {
       required: true,
       pattern: ValidationRegex.price.pattern,
       message: ValidationRegex.price.message,
-
     },
     {
       id: 1,
@@ -120,8 +126,7 @@ function Voucher() {
       required: true,
       pattern: ValidationRegex.price.pattern,
       message: ValidationRegex.price.message,
-
-    }
+    },
   ];
   return (
     <div className={cx('wrapper')}>
@@ -164,7 +169,6 @@ function Voucher() {
           </form>
         )}
       </FormValidation>
-      
     </div>
   );
 }
